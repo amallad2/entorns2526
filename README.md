@@ -30,3 +30,13 @@ Connectar Client / Servidor.
 Consultar dades d'usuari per nom.
 
 [Diagrama d'arquitectura prototip 1](charts/diagramaprototip1.mermaid)
+
+## End-Points WebService
+
+Definició del En-point del WebService: 
+
+URL Server desenvolupament: http://localhost:5000/
+
+| URL | Method | Paràmetres | Descripció | Output |
+|--------------|--------------|--------------|----------|----------|
+| /user       | Dato 2       | Dato 3       |Dato 4       |Dato 5   |
