@@ -30,11 +30,13 @@ class UserDao:
                 user = u.__dict__
         return user
 
+# Test DAO
 user_dao = UserDao()
 response=user_dao.getUserByUsername("maria")
 print(response)
 response=user_dao.getUserByUsername("AAAA")
 print(response)
+# End TEST
 
 '''
 app = Flask(__name__)
