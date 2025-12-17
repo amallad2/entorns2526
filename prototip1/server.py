@@ -31,14 +31,16 @@ class UserDao:
         return user
 
 # Test DAO
-user_dao = UserDao()
+'''user_dao = UserDao()
 response=user_dao.getUserByUsername("maria")
 print(response)
 response=user_dao.getUserByUsername("AAAA")
-print(response)
+print(response) '''
 # End TEST
 
-'''
+# Instanciem el Dao User
+user_dao = UserDao()
+
 app = Flask(__name__)
 
 @app.route('/user',methods=['GET'])
@@ -48,16 +50,17 @@ def user():
     username = request.args.get("username",default="")
     # Si els paràmetres OK
     if username != "":
-    # Anar al DAO Server i cercar User per username
-    # respondre amb dades Ususari si trobat
-        resposta="username=" + username
+        # Anar al DAO Server i cercar User per username
+        resposta=user_dao.getUserByUsername(username)
+        # respondre amb dades Ususari si trobat
+        if resposta == None:
+            resposta = {"msg":"Usuari No trobat"}
     else:  #  Si els paràmetres NO ok 
         # respondre error
-        resposta="username No Informat"
+        resposta = {"msg":"Falta paràmetre Username"}
     
-    return resposta
+    return jsonify(resposta)
 
 
 if __name__ == '__main__':
     app.run(debug=True)
-'''
