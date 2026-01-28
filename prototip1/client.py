@@ -1,0 +1,61 @@
+import requests
+
+class User:
+    def __init__(self,username, nom, password, email, rol="tutor"):
+        self.username=username
+        self.nom=nom
+        self.password=password
+        self.email=email
+        self.rol=rol
+    
+    def __str__(self):
+        return self.nom + " " + self.email + " " +  self.username + " " + self.rol
+    
+class daoUserClient:
+    
+    def getUserByUsername(self, username):
+        # Petició Http al WebService (requests)
+        response = requests.get("http://localhost:5000/user?username=" + username)
+        # si la petició Ok code response == 200
+        if response.status_code == 200:
+            # obtenir json 
+            user_data_raw = response.json()
+            # print(type(user_data_raw))
+            # Crear objecte User si ha trobat
+            if 'msg' in user_data_raw.keys():
+                return None
+            # si no ha trobat  retornem None
+            else:
+                user=User(user_data_raw['username'], user_data_raw['nom'],
+                          user_data_raw['password'], user_data_raw['email'],
+                          user_data_raw['rol'])
+                return user
+
+        return None
+
+class ViewConsole:
+    daoClient = daoUserClient()
+    
+    def getInputUsername(self):
+        return input("Enter username: ")
+    
+    def showUserInfo(self,username):
+        user = self.daoClient.getUserByUsername(username=username)
+        if user:
+            print(f"User Info: {user}")
+        else:
+            print(f"User with username {username} not found")
+
+
+# Test consultar usuari
+'''daoClient = daoUserClient()
+u=daoClient.getUserByUsername("rob")
+print(u)
+u=daoClient.getUserByUsername("NOTexists")
+print(u)
+'''
+
+# TO-DO Menú veure tots els usuaris, consultar usuari, add User i Exit
+view=ViewConsole()
+data=view.getInputUsername()
+view.showUserInfo(data)
