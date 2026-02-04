@@ -62,8 +62,8 @@ children = [
 ]
 
 taps = [
-    Tap(id=1, child_id=1, status_id=1, user_id=1, init="2024-12-18T19:42:43", end="2024-12-18T20:42:43"),
-    Tap(id=2, child_id=2, status_id=2, user_id=2, init="2024-12-18T21:42:43", end="2024-12-18T22:42:43")
+    Tap(id=1, child_id=1, status_id=1, user_id=1, init="2024-12-18T19:42:43"),
+    Tap(id=2, child_id=2, status_id=2, user_id=2, init="2024-12-18T21:42:43")
 ]
 
 relation_user_child = [
