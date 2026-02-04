@@ -19,6 +19,11 @@ class UserDAO:
         return None
 
 
+#####################################################
+#  Test / Proves Codi per veure funcionament 
+#  (comentar quan s'ha testejat)
+#####################################################
+
 ## print All Users from list dadesServer: 
 #print(" ".join([str(x) for x in users]))
 ## print All Users from DAO
