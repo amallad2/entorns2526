@@ -17,6 +17,19 @@ class UserDAO:
             if user.username == username:
                 return user.__dict__
         return None
+    
+    @staticmethod
+    def login(self, identifier, password):
+        for user in self.users:
+            if (user.username == identifier or user.email == identifier) and user.password == password:
+                return user
+        return None
+    
+    @staticmethod
+    def getUserRole(self,user_id):
+        return [relation['rol_id'] for relation in relation_user_child if relation['user_id'] == user_id]
+
+
 
 
 #####################################################
@@ -27,6 +40,7 @@ class UserDAO:
 ## print All Users from list dadesServer: 
 #print(" ".join([str(x) for x in users]))
 ## print All Users from DAO
+''' 
 userDao = UserDAO()
 listAllUsers=userDao.getAllUsers()
 print(type(listAllUsers))
@@ -46,7 +60,6 @@ response = ApiResponse(
 )
 print(response)
 print(asdict(response))
-'''
 Vol dir que estàs cridant jsonify() fora d’una ruta Flask o fora del context de l’aplicació.
 jsonify() només pot usar-se quan Flask té un app context actiu, és a dir:
 dins d’una funció decorada amb @app.route
