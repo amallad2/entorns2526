@@ -24,7 +24,6 @@ class UserDAO:
                 return user
         return None
     
-    @staticmethod
     def getUserRole(self,user_id):
         return [relation['rol_id'] for relation in relation_user_child if relation['user_id'] == user_id]
 
