@@ -11,8 +11,6 @@ class ApiResponse():
 # Instantiate DAO
 userDao=UserDAO()
 
-userDao
-
 app = Flask(__name__)
 
 @app.route('/getusers', methods=['GET'])
