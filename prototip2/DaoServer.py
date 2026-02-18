@@ -18,7 +18,6 @@ class UserDAO:
                 return user.__dict__
         return None
     
-    @staticmethod
     def login(self, identifier, password):
         for user in self.users:
             if (user.username == identifier or user.email == identifier) and user.password == password:

@@ -8,15 +8,22 @@ class ApiResponse():
     coderesponse: str
     data: list
 
-'''
-response = ApiResponse(
-    msg="All Users",
-    coderesponse="1",
-    data=userDao.getAllUsers()
-)
-'''
+# Instantiate DAO
+userDao=UserDAO()
+
+userDao
 
 app = Flask(__name__)
+
+@app.route('/getusers', methods=['GET'])
+def getusers():
+    response = ApiResponse(
+        msg="All Users",
+        coderesponse="1",
+        data=userDao.getAllUsers()
+    )
+    return jsonify(asdict(response)),200
+
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -24,32 +31,25 @@ def login():
     data = request.get_json()
     identifier = data.get('username')  # username or email
     password = data.get('password')
-    user = UserDAO.login(identifier, password)
-    if user:
-        id_role = -1
-        list_id_roles = UserDAO.getUserRole(user.id)
-        if 2 in list_id_roles:
-            id_role = 2
-        response = ApiResponse(
-            msg="All Users",
-            coderesponse="1",
-            data=
+    user = userDao.login(identifier, password)
+    response = ApiResponse(
+            msg="login",
+            coderesponse="-1",
+            data=user
         )
-
-        return jsonify({
-            "id": user.id,
-            "username": user.username,
-            "email": user.email,
-            "token": user.token,  # Use the user's token
-            "idrole": id_role,
-            "msg": "Usuari Ok",
-            "coderesponse": "1"
-        }), 200
+    if user:
+        response = ApiResponse(
+            msg="Authenticated",
+            coderesponse="1",
+            data=user
+        )
     else:
-        return jsonify({
-            "coderesponse": "0",
-            "msg": "No validat"
-        }), 400
+        response = ApiResponse(
+            msg="Not authenticated",
+            coderesponse="0",
+            data=user
+        )
+    return jsonify(asdict(response)),200
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
