@@ -30,14 +30,17 @@ Paramètres:
 Resposta Usuari validat Ok:  
 http Response Code: 200 ok  
 ```
-{    
-    "id": 1,
-    "username": "mare",
+{
+  "coderesponse": "1",
+  "data": {
     "email": "prova@gmail.com",
-    "token": "token12345",
-    "idrole": "2",
-    "msg": "Usuari Ok"
-    "coderesponse": "1"
+    "id": 1,
+    "idrole": 1,
+    "password": "12345",
+    "token": "",
+    "username": "mare"
+  },
+  "msg": "Authenticated"
 }
 ```
 
