@@ -37,11 +37,11 @@ class ChildDAO:
         # Return Child objects
         return [c.__dict__ for c in self.childs if c.id in child_ids]
 
-cDao = ChildDAO()
-u=User(id=1, username="", password="", email="", idrole=1, token="")
+'''cDao = ChildDAO()
+u=User(id=2, username="", password="", email="", idrole=1, token="")
 listChilds=cDao.getChilds(u)
 print(listChilds)
-
+'''
 
 
 

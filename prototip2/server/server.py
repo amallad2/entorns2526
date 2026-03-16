@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
-from DaoServer import UserDAO
+from DaoServer import UserDAO,ChildDAO
+from dadesServer import *
 from dataclasses import dataclass, asdict
 
 @dataclass
@@ -10,6 +11,7 @@ class ApiResponse():
 
 # Instantiate DAO
 userDao=UserDAO()
+childDao=ChildDAO()
 
 app = Flask(__name__)
 
@@ -47,6 +49,27 @@ def login():
             coderesponse="0",
             data=""
         )
+    return jsonify(asdict(response)),200
+
+
+@app.route('/child', methods=['POST'])
+def child():
+    data = request.get_json()
+    user_id = data.get('id_user')  # id_user
+    response = ApiResponse(
+            msg="Child",
+            coderesponse="-1",
+            data=""
+        )
+    if(not user_id and not user_id.is_integer): #validacio dades entrada
+       return jsonify(asdict(response)),400
+    
+    user_id=int(user_id)
+    u=User(id=user_id, username="", password="", email="", idrole=1, token="")
+    listChilds=childDao.getChilds(u)
+    response.coderesponse="1"
+    response.msg=len(listChilds)
+    response.data=listChilds
     return jsonify(asdict(response)),200
 
 if __name__ == '__main__':
