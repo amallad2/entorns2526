@@ -30,17 +30,17 @@ classDiagram
 
     
     class UserDAO {
-        +getAllUsers() list
+        +getAllUsers() list<User>
         +getUserByUsername(username) dict
         +login(identifier, password) dict
     }
 
     class ChildDAO {
-        +getChilds(user) list
+        +getChilds(User) list<Child>
     }
 
     class TapDAO {
-        +getTaps(Child) list
+        +getTaps(Child) list<Tap>
     }
 
     class ViewConsole {
@@ -48,10 +48,10 @@ classDiagram
         +viewShowMenu() int
         +viewGeneral()
         +viewLogin()
-        +viewUser(user)
+        +viewUser(User)
         +viewUserNotAutenticated()
-        +viewChilds(list childs)
-        +viewTaps(list taps)
+        +viewChilds(list<Child>)
+        +viewTaps(list<Tap>)
     }
 
 

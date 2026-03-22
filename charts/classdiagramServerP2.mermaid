@@ -40,13 +40,13 @@ classDiagram
     class ChildDAO {
         -list childs
         -list relation_user_child
-        +getChilds(user) list
+        +getChilds(User) list<Child>
     }
 
 
     class TapDAO {
         -list taps
-        +getTaps(child) list
+        +getTaps(Child) list<Tap>
     }
 
 
@@ -54,11 +54,11 @@ classDiagram
         - UserDAO daoUser
         - ChildDAO daoChild
         - TapDAO daoTap
-        +getAllUsers() String
-        +getUserByUsername() String
-        +login() String
-        +getChilds() String
-        +getTaps() String
+        +getAllUsers() String(Json)
+        +getUserByUsername() String(Json)
+        +login() String(Json)
+        +getChilds() String(Json)
+        +getTaps() String(Json)
     }
 
     UserDAO --> User : uses
