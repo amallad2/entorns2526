@@ -1,0 +1,95 @@
+classDiagram
+    class User {
+        -int id
+        -str username
+        -str password
+        -str email
+        -int idrole
+        -str token
+        +__init__(id, username, password, email, idrole, token)
+        +__str__()
+    }
+
+    class Child {
+        -int id
+        -str child_name
+        -float sleep_average
+        -int treatment_id
+        -str time
+        +__init__(id, child_name, sleep_average, treatment_id, time)
+    }
+
+    class Treatment {
+        -int id
+        -str name
+        +__init__(id, name)
+    }
+
+    class Tap {
+        -int id
+        -int child_id
+        -int status_id
+        -int user_id
+        -str init
+        +__init__(id, child_id, status_id, user_id, init)
+    }
+
+    class Status {
+        -int id
+        -str name
+        +__init__(id, name)
+    }
+
+    class Role {
+        -int id
+        -str type_rol
+        +__init__(id, type_rol)
+    }
+
+    class DaoUserClient {
+        -str base_URL
+        +login(user) User
+    }
+
+    class UserDAO {
+        -list users
+        +getAllUsers() list
+        +getUserByUsername(username) dict
+        +login(identifier, password) dict
+        +getUserRole(user_id) list
+    }
+
+    class ChildDAO {
+        -list childs
+        -list relation_user_child
+        +getChilds(user) list
+    }
+
+    class ViewConsole {
+        -DaoUserClient daoClient
+        +viewShowMenu() int
+        +viewGeneral()
+        +viewLogin()
+        +viewUser(user)
+        +viewUserNotAutenticated()
+    }
+
+    class ApiResponse {
+        -str msg
+        -str coderesponse
+        -list data
+    }
+
+    %% Relacions
+    User "1" -- "*" Role : has
+    User "1" -- "*" Tap : executes
+    Child "1" -- "*" Tap : involves
+    Child "1" -- "*" Treatment : receives
+    Tap "1" -- "*" Status : has
+    
+    DaoUserClient --> User : uses
+    UserDAO --> User : manages
+    ChildDAO --> Child : manages
+    ViewConsole --> DaoUserClient : uses
+    ViewConsole --> User : creates
+    ApiResponse --> User : contains

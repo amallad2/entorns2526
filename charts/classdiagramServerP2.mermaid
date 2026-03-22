@@ -1,0 +1,108 @@
+classDiagram
+    %% === ENTITATS DE MODEL ===
+    class User {
+        -int id
+        -str username
+        -str password
+        -str email
+        -int idrole
+        -str token
+        +__init__(id, username, password, email, idrole, token)
+        +__str__() str
+    }
+
+    class Child {
+        -int id
+        -str child_name
+        -float sleep_average
+        -int treatment_id
+        -int time
+        +__init__(id, child_name, sleep_average, treatment_id, time)
+    }
+
+    class Treatment {
+        -int id
+        -str name
+        +__init__(id, name)
+    }
+
+    class Tap {
+        -int id
+        -int child_id
+        -int status_id
+        -int user_id
+        -str init
+        +__init__(id, child_id, status_id, user_id, init)
+    }
+
+    class Status {
+        -int id
+        -str name
+        +__init__(id, name)
+    }
+
+    class Role {
+        -int id
+        -str type_rol
+        +__init__(id, type_rol)
+    }
+
+    %% === CAPA DAO (ACCESS LAYER) - SERVIDOR ===
+    class UserDAO {
+        -list users
+        +getAllUsers() list
+        +getUserByUsername(username) dict
+        +login(identifier, password) dict
+        +getUserRole(user_id) list
+    }
+
+    class ChildDAO {
+        -list childs
+        -list relation_user_child
+        +getChilds(user) list
+    }
+
+    %% === CAPA DAO (ACCESS LAYER) - CLIENT ===
+    class DaoUserClient {
+        -str base_URL
+        +login(user) User
+    }
+
+    %% === CAPA VIEW ===
+    class ViewConsole {
+        -DaoUserClient daoClient
+        +viewShowMenu() int
+        +viewGeneral()
+        +viewLogin()
+        +viewUser(user)
+        +viewUserNotAutenticated()
+    }
+
+    %% === ESTRUCTURA API ===
+    class ApiResponse {
+        -str msg
+        -str coderesponse
+        -list data
+        +__init__(msg, coderesponse, data)
+    }
+
+    %% === RELACIONS DE MODEL ===
+    User "1" -- "*" Tap : executes
+    User "1" -- "*" Role : has_role
+    Child "1" -- "*" Tap : involves
+    Child "1" -- "1" Treatment : receives
+    Tap "1" -- "1" Status : has_status
+    
+    %% === RELACIONS DAO-MODEL (Control/Gestió) ===
+    UserDAO --> User : manages
+    ChildDAO --> Child : manages
+    ChildDAO --> User : uses
+    
+    %% === RELACIONS CLIENT-DAO ===
+    DaoUserClient --> User : uses
+    ViewConsole --> DaoUserClient : uses
+    ViewConsole --> User : creates
+    
+    %% === RELACIONS API ===
+    ApiResponse --> User : contains_user_data
+    ApiResponse --> Child : contains_child_data
