@@ -61,9 +61,9 @@ def child():
         return jsonify(asdict(response)),400
 
     data = request.get_json()
-    childs=childDao.getChilds(user['id'])
+    childs=childDao.getChilds(str(user['id']))
     response = ApiResponse(
-            msg="getChilds",
+            msg="GetChilds",
             coderesponse="1",
             data=childs
         )
