@@ -17,9 +17,9 @@ app = Flask(__name__)
 @app.route('/login', methods=['POST'])
 def login():
     # Token validation if exists
-    print(request.headers)
+    #print(request.headers)
     token=request.headers.get("api-token")
-    print("Token:" , token)
+    #print("Token:" , token)
     user=None
     if(token):
         # comprovar que el token existeix a un usuari

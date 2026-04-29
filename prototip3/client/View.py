@@ -31,8 +31,7 @@ class ViewConsole:
                     self.viewLogin()
                 case 2:
                     #login Token
-                    self.viewLoginToken()
-                    print("Login Token")
+                    self.viewLoginToken(self.token)
                 case 3:
                     #Childs
                     print("Childs")
@@ -40,7 +39,16 @@ class ViewConsole:
                 case 4:
                     # Quit
                     print("Adeu, Gràcies per utilitzar l'aplicació")
-                
+
+    def viewLoginToken(self, token):
+        print("View LOGIN TOKEN")
+        resposta_user=self.daoClient.loginToken(token)
+        if(resposta_user):
+            self.viewUser(resposta_user)
+            self.token=resposta_user.token
+        else:
+            self.viewUserNotAutenticated()
+
     def viewLogin(self):
         print("View LOGIN")
         print("Introdueix el Username o email i el password")
@@ -50,7 +58,7 @@ class ViewConsole:
         resposta_user=self.daoClient.login(user)
         if(resposta_user):
             self.viewUser(resposta_user)
-            token=resposta_user.token
+            self.token=resposta_user.token
         else:
             self.viewUserNotAutenticated()
     
