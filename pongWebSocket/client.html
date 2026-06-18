@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pong WS</title>
+  <style>canvas { background: black; display: block; margin: auto; }</style>
+</head>
+<body>
+<canvas id="game" width="800" height="600"></canvas>
+<script>
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+let myY = 250;
+
+const socket = new WebSocket('ws://localhost:10040');
+
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowUp") myY -= 10;
+  if (e.key === "ArrowDown") myY += 10;
+  socket.send(JSON.stringify({ y: myY }));
+});
+
+socket.onmessage = event => {
+  const data = JSON.parse(event.data);
+  draw(data);
+};
+
+function draw(state) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = 'white';
+
+  // Dibujar palas
+  for (let key in state.players) {
+    let x = key === "0" ? 20 : 770;
+    ctx.fillRect(x, state.players[key], 10, 100);
+  }
+
+  // Dibujar pelota
+  ctx.beginPath();
+  ctx.arc(state.ball.x, state.ball.y, 10, 0, Math.PI * 2);
+  ctx.fill();
+}
+</script>
+</body>
+</html>
