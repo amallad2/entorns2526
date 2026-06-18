@@ -1,25 +1,24 @@
-flowchart LR
-
-    %% Bloc Client
-    subgraph CLIENT ["🌐 Client (FrontEnd)"]
-        VISTA["Vista<br>(Input Nom)"]
-        DAOCLIENT["DaoClient<br>(getUserName)"]
+flowchart TD
+    subgraph Server["🖥️ Servidor"]
+        C -->|Consulta DAOUser | D[Server DAO User <br> getUserByUsername]
+        D -->|Respon Objecte User if exists| C
+        
     end
+    
+    subgraph Client["🌐 Client"]
+        A[<b>Client View</b> <br> Input username] -->|Envia dades username| B[Client DAO User<br> getUserByUsername]
+        B -->|Petición HTTP  GET | C[<b>Servidor</b> <br> Webservice]
+        B -->|Dades processades| F[<b>Client View</b> <br> Show Info User if exists]
+        C -->|Reposta HTTP Json | B
+    end       
 
-    %% Bloc Servidor
-    subgraph SERVER ["🖥️ Servidor (Backend)"]
-        WEBSERVICE["WebService<br>(getUserByName)"]
-        DAOSERVER["Dao<br>(getUserByName)"]
-        DATA["Llista de dades d'usuaris"]
-    end
 
-    %% Connexions internes Client
-    VISTA <--> DAOCLIENT
+    classDef client fill:#D6EAF8,stroke:#333,stroke-width:2px;
+    classDef server fill:#F9EBEA,stroke:#333,stroke-width:2px;
 
-    %% Petició i resposta HTTP
-    DAOCLIENT -- "Petició HTTP" --> WEBSERVICE
-    WEBSERVICE -- "Resposta HTTP" --> DAOCLIENT
-
-    %% Connexions internes Servidor
-    WEBSERVICE <--> DAOSERVER
-    DAOSERVER <--> DATA
+    class A client;
+    class B client;
+    class F client;
+    class C server;
+    class D server;
+    

@@ -1,0 +1,25 @@
+graph TD
+    %% Definició dels actors
+    A[Mare/Pare]
+    D[ Cuidador]
+    B[Oftalmòleg]
+    C[Aplicació TapatApp]
+    
+    %% Casos d'ús principals
+    A -->|Controlar el temps del pegat| U1[Registrar el temps d'ús del pegat]
+    A -->|Gestionar diversos nens| U2[Afegir i gestionar perfils d'infants]
+    A -->|Rebre notificacions| U3[Alertes intel·ligents per complir el tractament]
+    A -->|Registrar el temps de son| U4[Descomptar el temps adormit]
+    A -->|Configurar tractament| U5[Establir temps del pegat]
+    
+    B -->|Configurar tractament| U5[Establir temps del pegat]
+    
+    %% Casos d'ús relacionats amb l'aplicació
+    C -->|Emmagatzemar dades| U6[Backend per gestionar dades]
+    C -->|Autenticació| U7[Gestionar usuaris multiusuari]
+    C -->|Sincronització de dades| U8[Integració amb web futura]
+
+    D -->|Controlar el temps del pegat| U1[Registrar el temps d'ús del pegat]
+    D -->|Rebre notificacions| U3[Alertes intel·ligents per complir el tractament]
+    D -->|Registrar el temps de son| U4[Descomptar el temps adormit]
+    

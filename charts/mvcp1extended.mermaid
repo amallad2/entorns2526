@@ -1,0 +1,23 @@
+flowchart TD
+    A["<b>Client View</b> <br> Input username"] -->|Consulta DAO| B["Client DAO User<br> getUserByUsername"]
+    B -->|Consulta Model| M["Client Model <br> User Model"]
+    B -->|Petició HTTP GET username| C["<b>Servidor</b> <br> Webservice"]
+    
+    C -->|Consulta Model| N["Server Model <br> User Model"]
+    N -->|Consulta DAOUser| D["Server DAO User <br> getUserByUsername"]
+    D -->|Consulta BBDD| DB["🗄️ Base de Dades"]
+    
+    DB -->|Retorna dades Usuari si existeix| D
+    D -->|Retorna Objecte User| N
+    N -->|Retorna Objecte User| C
+    
+    C -->|Resposta HTTP amb JSON User if exists| B
+    B -->|Dades processades| F["<b>Client View</b> <br> Show Info User if exists"]
+    
+    classDef client fill:#D6EAF8,stroke:#333,stroke-width:2px;
+    classDef server fill:#F9EBEA,stroke:#333,stroke-width:2px;
+    classDef db fill:#F7DC6F,stroke:#333,stroke-width:2px;
+    
+    class A,B,M,F client;
+    class C,N,D server;
+    class DB db;

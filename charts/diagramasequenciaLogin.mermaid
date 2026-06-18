@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant Usuario
+    participant App
+    participant WebService
+    participant BBDD
+
+    Usuario->>App: Ingresa usuario y contraseña
+    App->>WebService: Envía credenciales
+    WebService->>BBDD: Consulta usuario y contraseña
+    BBDD-->>WebService: Responde con resultado (válido o no)
+    alt Credenciales válidas
+        WebService-->>App: Devuelve token de autenticación
+        App-->>Usuario: Acceso permitido
+    else Credenciales inválidas
+        WebService-->>App: Devuelve error de autenticación
+        App-->>Usuario: Muestra mensaje de error
+    end

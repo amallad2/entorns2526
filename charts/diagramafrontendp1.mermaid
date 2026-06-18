@@ -1,0 +1,30 @@
+---
+title: Diagrama de classes FrontEnd Prototip 1
+---
+classDiagram
+    View <|-- DaoUser
+    DaoUser <|-- View 
+    
+    class User{
+        +int id
+        +String username
+        +String email
+        +String password
+    }
+
+    class Error{
+        +int code
+        +String description
+    }
+
+    class View{
+        +String  username
+        +getUsernameByConsole()
+        +showInfoUser(User user)
+        +showInfoError(Error error)
+    }
+    class DaoUser{
+        +String  username
+        +getUserByUsername(): User or Error
+    }
+    
